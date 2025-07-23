@@ -59,9 +59,9 @@ const cars: Car[] = [
 function getCarMake(car: Car): string {
   // write your code here...
 
-  return ""; // replace empty string with what you see is fit
+  return car.make; // replace empty string with what you see is fit
 }
-
+console.log(getCarMake(cars[0]));
 /**
  * `isCarColorMatching` function:
  * - Accepts:
@@ -72,11 +72,13 @@ function getCarMake(car: Car): string {
  *  isCarColorMatching(cars[1], "Blue"); // => false
  */
 function isCarColorMatching(car: Car, color: string): boolean {
-  // write your code here...
+  if (car.color === color) {
+    return true;
+  }
 
   return false; // replace false with what you see is fit
 }
-
+console.log(isCarColorMatching(cars[1], "Blue"));
 /**
  * `addCar` function:
  * - Accepts:
@@ -104,11 +106,18 @@ function addCar(
   year: number,
   color: string
 ): Car[] {
-  // write your code here...
+  const newCar: Car = {
+    id: id,
+    make: make,
+    model: model,
+    year: year,
+    color: color,
+  };
+  cars.push(newCar);
 
-  return []; // replace empty array with what you see is fit
+  return cars; // replace empty array with what you see is fit
 }
-
+console.log(addCar(cars, 407, "Kia", "Sorento", 2021, "Green"));
 /**
  * `countCarsMadeInYear` function:
  * - Accepts:
@@ -119,11 +128,9 @@ function addCar(
  *  countCarsMadeInYear(cars, 2020); // => 2
  */
 function countCarsMadeInYear(cars: Car[], year: number): number {
-  // write your code here...
-
-  return Infinity; // replace Infinity with what you see is fit
+  return cars.filter((ccm) => ccm.year === year).length; // replace Infinity with what you see is fit
 }
-
+console.log(countCarsMadeInYear(cars, 2020));
 /**
  * `removeCarById` function:
  * - Accepts:
@@ -138,7 +145,7 @@ function countCarsMadeInYear(cars: Car[], year: number): number {
 function removeCarById(cars: Car[], id: number): Car[] {
   // write your code here...
 
-  return []; // replace empty array with what you see is fit
+  return cars.filter((rci) => rci.id !== id); // replace empty array with what you see is fit
 }
 
 /**
@@ -161,7 +168,12 @@ function updateCarColor(
   id: number,
   newColor: string
 ): Car | "No Car Found" {
-  // write your code here...
+  const ccu = cars.find((cu) => cu.id === id);
+
+  if (ccu) {
+    ccu.color = newColor;
+    return ccu;
+  }
 
   return "No Car Found"; // replace "No Car Found" with what you see is fit
 }
